@@ -18,5 +18,7 @@
         "repo": "anthropics/claude-code"
       }
     }
-  }
+  },
+  "autoUpdatesChannel": "latest",
+  "skipDangerousModePermissionPrompt": true
 }
