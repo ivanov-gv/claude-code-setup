@@ -1,6 +1,4 @@
-# Deploy
-
-## Build
+# Build
 
 - `CGO_ENABLED=0` always — static binary, no shared lib dependencies
 - Cross-compile explicitly: `GOOS=linux GOARCH=amd64`
@@ -8,14 +6,14 @@
 - Remove local paths: `-trimpath`
 - Inject version at build time via `-X` ldflags using `git describe` and `git rev-parse`
 
-## Docker
+# Docker
 
 - Multi-stage build — build in `golang:alpine`, copy binary to runtime image
 - Prefer the tiniest image possible, a `scratch` image for example
 - Only copy the binary into the final image
-- Never install runtime dependencies — if you need them, question the approach first
+- Avoid installing runtime dependencies as much as possible. Keep the runtime the cleanest you can
 
-## Deploy
+# Deploy
 
 - Expose `/healthz` (liveness) and `/readyz` (readiness) — they are not the same check
 - Handle `SIGTERM` with graceful shutdown and a timeout context

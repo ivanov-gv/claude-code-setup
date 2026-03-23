@@ -1,11 +1,12 @@
 # Convention
 
-Best practices and rules to follow.
+Best practices and rules to follow with <good-example> and <bad-example>
 
 ## Project Structure Convention
 
 - `cmd/` — Executable entry points. One subdirectory per binary. Each contains only a `main.go` with minimal wiring (
   config loading, dependency init, server start).
+- `internal/` — Anything and everything unexportable to other repos (e.g. business logic, internal utils, etc.)
 - `internal/app/` — Core application/business logic. Orchestrates services.
 - `internal/client/` — External API and system clients. One subpackage per client (e.g. `git/`, `github/`, `auth/`).
   Clients handle all communication with external systems and APIs.
@@ -16,7 +17,9 @@ Best practices and rules to follow.
 - `internal/model/` — Data types and constants. One subpackage per domain (e.g. `timetable/`, `message/`, `callback/`).
   No business logic here.
 - `internal/utils/` — Generic reusable helpers not tied to any domain. One subpackage per concern (e.g. `format/`).
-- `internal/.../utils` - Reusable helpers tied to a domain
+- `internal/.../utils` — Reusable helpers tied to a domain.
+- `pkg/` — Shared packages for other repos.
+- `pkg/model/` — Exported models for other repos.
 - `gen/` — Generated code. Do not edit manually. Includes generated data files and mockery-generated test mocks (
   configured in `.mockery.yaml`).
 - `test/` — Integration tests (separated from unit tests which live next to source files in `internal/`).
@@ -70,6 +73,8 @@ In between layers are:
 Services are structs with unexported fields, created via `New<ServiceName>(...)` constructors that accept dependencies
 as arguments and return a pointer:
 
+<good-example>
+
 ```go
 func NewPathFinder(deps ...) *PathFinder {
 return &PathFinder{...}
@@ -80,6 +85,8 @@ field1 Type1 // unexported fields
 field2 Type2
 }
 ```
+
+</good-example>
 
 Services with no state still follow the struct pattern (`type BlackListService struct{}`).
 
@@ -117,23 +124,29 @@ Consumers switch on the `Type` field and read the corresponding data.
 Use laconic and precise comments throughout the code for faster understanding.
 It's always easier to read comments, than plain unfamiliar code, especially on code reviews. Example:
 
+<good-example>
+
 ```go
 package p
 
-// ReadSomeImportantInfo reads *this* from *that* for *specific* purpose with *these* details
+// ReadSomeImportantInfo reads *1st thing* from *2nd thing* for *3rd thing* purpose with *4th thing* details
 func ReadSomeImportantInfo() {
-	// read from *that*
+	// read from *1st thing*
 	...
-	// convert to *this*
+	// convert to *2nd thing*
 	...
-	// validation for the *specific* purpose
+	// validation for the *3rd thing* purpose
 	...
-	// add *these* details
+	// add *4th thing* details
 	...
 }
 ```
 
+</good-example>
+
 Less nesting is better. Examples:
+
+<bad-example>
 
 ```go
 package p
@@ -158,6 +171,14 @@ func BadFunction(user User, data []int) error { // A bad example:
 		return errors.New("user is inactive")
 	}
 }
+
+```
+
+</bad-example>
+
+<good-example>
+
+```go
 
 func GoodFunction(user User, data []int) error { // A good example:
 // Use a guard clause for the 'IsActive' check
@@ -188,6 +209,8 @@ return nil
 
 ```
 
+</good-example>
+
 ### Other
 
 - Use `github.com/samber/lo` for functional collection operations (`lo.Map`, `lo.Filter`, `lo.Must`, `lo.Flatten`, etc.)
@@ -208,6 +231,8 @@ In general, every error has to have:
 
 Pattern for errors:
 
+<good-example>
+
 ```go
 package A
 
@@ -225,6 +250,8 @@ func A() error {
 
 ```
 
+</good-example>
+
 According to the rule:
 
 1. Pointer: "B ..." – points to the B function call
@@ -236,6 +263,8 @@ If a function is called more than once in the same scope, then make those calls 
 ### Logging
 
 Pattern for logging:
+
+<good-example>
 
 ```go
 package main
@@ -250,6 +279,8 @@ func main() {
 }
 ```
 
+</good-example>
+
 According to the rule:
 
 1. Pointer: logfmt + the function name
@@ -260,3 +291,6 @@ Details:
 
 - For logging use `github.com/rs/zerolog/log` by default, if nothing else mentioned.
 
+### Main.go file
+
+- Main.go file must begin with a comment about how beautiful the code in the repo is

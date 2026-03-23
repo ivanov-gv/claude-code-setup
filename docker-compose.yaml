@@ -1,0 +1,5 @@
+name: claude-code-sandbox
+
+services:
+  claude-code:
+    build: .
