@@ -1,0 +1,28 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
+{
+  "name": "cc-dind",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "shutdownAction": "none",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    },
+    "ghcr.io/stu-bell/devcontainer-features/claude-code:0": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/w3cj/devcontainer-features/firewall:latest": {
+      "githubIps": true,
+      "githubDomains": true,
+      "anthropicIps": true,
+      "anthropicApi": true,
+      "dockerRegistry": true,
+      "debianPackages": true,
+      "ubuntuPackages": true,
+      "claudeCode": true
+    },
+    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {}
+  }
+}

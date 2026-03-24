@@ -1,5 +1,30 @@
 name: claude-code-sandbox
 
 services:
-  claude-code:
-    build: .
+  dind:
+    image: cc-dind
+    stdin_open: true
+    tty: true
+    privileged: true
+    volumes:
+      - dind-home:/home/vscode
+
+  golang-alpine:
+    image: cc-golang-alpine
+    stdin_open: true
+    tty: true
+    volumes:
+      - golang-alpine-home:/home/vscode
+
+  golang-dind:
+    image: cc-golang-dind
+    stdin_open: true
+    tty: true
+    privileged: true
+    volumes:
+      - golang-dind-home:/home/vscode
+
+volumes:
+  dind-home:
+  golang-alpine-home:
+  golang-dind-home:
