@@ -6,7 +6,9 @@
   "shutdownAction": "none",
   "features": {
     "ghcr.io/stu-bell/devcontainer-features/claude-code:0": {},
-    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "dev"
+    },
     "ghcr.io/devcontainers/features/go:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/w3cj/devcontainer-features/firewall:latest": {
@@ -22,6 +24,7 @@
     },
     "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {}
   },
+  "remoteUser": "dev",
   "customizations": {
     "jetbrains": {
       "settings": {

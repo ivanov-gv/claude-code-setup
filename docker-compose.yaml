@@ -7,14 +7,14 @@ services:
     tty: true
     privileged: true
     volumes:
-      - dind-home:/home/vscode
+      - dind-home:/home/dev
 
   golang-alpine:
     image: cc-golang-alpine
     stdin_open: true
     tty: true
     volumes:
-      - golang-alpine-home:/home/vscode
+      - golang-alpine-home:/home/dev
 
   golang-dind:
     image: cc-golang-dind
@@ -22,7 +22,7 @@ services:
     tty: true
     privileged: true
     volumes:
-      - golang-dind-home:/home/vscode
+      - golang-dind-home:/home/dev
 
 volumes:
   dind-home:
