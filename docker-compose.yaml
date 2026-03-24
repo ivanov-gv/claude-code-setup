@@ -1,5 +1,4 @@
 name: claude-code-sandbox
-
 services:
   dind:
     image: cc-dind
