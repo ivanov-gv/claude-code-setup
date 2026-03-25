@@ -1,0 +1,18 @@
+# Ignore everything
+*
+/**
+/**/*
+
+# Allow .gitignore itself
+!.gitignore
+
+# Allow specific files
+!CLAUDE.md
+
+# Allow specific directories and their contents
+!skills/
+!skills/**
+!agents/
+!agents/**
+!shared
+!shared/**
