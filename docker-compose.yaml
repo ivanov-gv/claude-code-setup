@@ -1,46 +1,32 @@
 name: claude-code-sandbox
 
+x-sandbox: &sandbox
+  user: dev
+  entrypoint: ["/usr/local/bin/sandbox-init.sh"]
+  command: ["sleep", "infinity"]
+
 services:
   dind:
+    <<: *sandbox
     image: cc-dind
-    stdin_open: true
-    tty: true
     privileged: true
-    user: dev
-    entrypoint: ["/bin/sh", "-c", "sudo init-firewall.sh && exec /usr/local/share/docker-init.sh \"$@\"", "--"]
-    command: ["sleep", "infinity"]
-    environment:
-      DOCKER_HOST: unix:///var/run/docker.sock
-      PATH: /home/dev/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
       - dind-home:/home/dev
       - type: tmpfs
         target: /var/lib/docker
 
-  golang-alpine:
-    image: cc-golang-alpine
-    stdin_open: true
-    tty: true
-    user: dev
+  golang:
+    <<: *sandbox
+    image: cc-golang
     cap_add:
       - NET_ADMIN
-    entrypoint: ["/bin/sh", "-c", "sudo init-firewall.sh && exec bash"]
-    environment:
-      PATH: /home/dev/.local/bin:/usr/local/go/bin:/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - golang-alpine-home:/home/dev
+      - golang-home:/home/dev
 
   golang-dind:
+    <<: *sandbox
     image: cc-golang-dind
-    stdin_open: true
-    tty: true
     privileged: true
-    user: dev
-    entrypoint: ["/bin/sh", "-c", "sudo init-firewall.sh && exec /usr/local/share/docker-init.sh \"$@\"", "--"]
-    command: ["sleep", "infinity"]
-    environment:
-      DOCKER_HOST: unix:///var/run/docker.sock
-      PATH: /home/dev/.local/bin:/usr/local/go/bin:/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
       - golang-dind-home:/home/dev
       - type: tmpfs
@@ -48,5 +34,5 @@ services:
 
 volumes:
   dind-home:
-  golang-alpine-home:
+  golang-home:
   golang-dind-home:

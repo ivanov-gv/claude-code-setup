@@ -14,18 +14,20 @@
     "ghcr.io/devcontainers/features/go:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/w3cj/devcontainer-features/firewall:latest": {
-      "hosts": "proxy.golang.org,sum.golang.org,storage.googleapis.com,golang.org,cloudflarestorage.com",
+      "hosts": "proxy.golang.org,sum.golang.org,storage.googleapis.com,golang.org,cloudflarestorage.com,download.docker.com",
       "githubIps": true,
       "githubDomains": true,
       "anthropicIps": true,
       "anthropicApi": true,
+      "googleCloudIps": true,
       "cloudflareIps": true,
       "dockerRegistry": true,
       "debianPackages": true,
       "ubuntuPackages": true,
       "claudeCode": true
     },
-    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {}
+    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {},
+    "../sandbox-init": {}
   },
   "remoteUser": "dev",
   "customizations": {

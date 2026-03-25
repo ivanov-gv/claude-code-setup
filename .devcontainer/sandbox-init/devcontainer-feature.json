@@ -1,0 +1,15 @@
+{
+  "id": "sandbox-init",
+  "version": "1.0.0",
+  "name": "Sandbox Init",
+  "description": "Initializes firewall and chains to docker-init.sh if present. Sets correct PATH and entrypoint for sandbox containers.",
+  "entrypoint": "/usr/local/bin/sandbox-init.sh",
+  "containerEnv": {
+    "PATH": "/home/dev/.local/bin:/usr/local/go/bin:/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  },
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/devcontainers/features/docker-in-docker",
+    "ghcr.io/w3cj/devcontainer-features/firewall"
+  ]
+}

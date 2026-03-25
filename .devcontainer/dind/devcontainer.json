@@ -13,7 +13,7 @@
     },
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/w3cj/devcontainer-features/firewall:latest": {
-      "hosts": "cloudflarestorage.com",
+      "hosts": "cloudflarestorage.com,download.docker.com",
       "githubIps": true,
       "githubDomains": true,
       "anthropicIps": true,
@@ -24,7 +24,8 @@
       "ubuntuPackages": true,
       "claudeCode": true
     },
-    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {}
+    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {},
+    "../sandbox-init": {}
   },
   "remoteUser": "dev"
 }
