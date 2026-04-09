@@ -1,0 +1,1 @@
+Follow all organizational, project, and team guidelines. Guidelines are located at `~/.claude/shared/guidelines/**/*`. Load only guidelines relevant to the current task to avoid context overflow. All changes must comply with guideline requirements and will be subject to review.

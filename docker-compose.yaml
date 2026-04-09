@@ -1,0 +1,40 @@
+name: claude-code-sandbox
+
+x-default: &default
+    entrypoint: [ "/usr/local/bin/sandbox-init.sh" ]
+    command: [ "sleep", "infinity" ]
+    user: vscode
+    working_dir: /home/vscode/workdir
+    environment:
+      CLAUDE_CODE_OAUTH_TOKEN: "${CLAUDE_CODE_OAUTH_TOKEN}"
+    tmpfs:
+      - /var/lib/docker
+
+services:
+#  dind:
+#    <<: *default
+#    image: cc-dind
+#    privileged: true
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#      - dind-home:/home/vscode
+#
+#  golang:
+#    <<: *default
+#    image: cc-golang
+#    cap_add:
+#      - NET_ADMIN
+#    volumes:
+#      - golang-home:/home/vscode
+
+  golang-dind:
+    <<: *default
+    image: cc-golang-dind
+    privileged: true
+    volumes:
+      - golang-dind-home:/home/vscode
+
+volumes:
+#  dind-home:
+#  golang-home:
+  golang-dind-home:

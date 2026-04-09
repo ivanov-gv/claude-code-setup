@@ -1,0 +1,43 @@
+{
+  "name": "cc-golang",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "shutdownAction": "none",
+  "features": {
+    "ghcr.io/stu-bell/devcontainer-features/claude-code:0": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/devcontainers/features/go:1": {},
+    "ghcr.io/azutake/devcontainer-features/go-packages-install:0": {
+      "PACKAGES": "golang.org/x/tools/gopls@latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/w3cj/devcontainer-features/firewall:latest": {
+      "hosts": "proxy.golang.org,sum.golang.org,storage.googleapis.com,golang.org",
+      "githubIps": true,
+      "githubDomains": true,
+      "anthropicIps": true,
+      "anthropicApi": true,
+      "googleCloudIps": true,
+      "dockerRegistry": false,
+      "debianPackages": true,
+      "ubuntuPackages": true,
+      "claudeCode": true
+    },
+    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {},
+    "../sandbox-init": {}
+  },
+  "customizations": {
+    "jetbrains": {
+      "settings": {
+        "com.intellij:app:BaseRefactoringSettings.safe_delete_when_delete": false,
+        "com.intellij:app:BaseRefactoringSettings.rename_search_in_comments_for_file": false,
+        "com.intellij:app:BaseRefactoringSettings.rename_search_for_references_for_directory": false,
+        "org.jetbrains.plugins.github:app:GithubSettings.clone_git_using_ssh": true,
+        "com.intellij:app:VcsApplicationSettings.commit_from_local_changes": false,
+        "com.intellij.database:app:DatabaseSettings.warn-unsafe-query": false,
+        "Git4Idea:app:Git-Application-Settings.use_credential_helper": true,
+        "com.intellij:app:HttpConfigurable.use_proxy_pac": true
+      },
+      "backend": "GoLand"
+    }
+  }
+}
