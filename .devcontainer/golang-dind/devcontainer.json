@@ -11,7 +11,7 @@
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/devcontainers/features/go:1": {},
     "ghcr.io/azutake/devcontainer-features/go-packages-install:0": {
-      "PACKAGES": "golang.org/x/tools/gopls@latest"
+      "PACKAGES": "golang.org/x/tools/gopls@latest github.com/ivanov-gv/gh-contribute/cmd/gh-contribute@latest"
     },
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/w3cj/devcontainer-features/firewall:latest": {
