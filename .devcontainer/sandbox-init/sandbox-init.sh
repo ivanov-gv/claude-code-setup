@@ -13,6 +13,11 @@ fi
 sudo chown root:root /home/vscode/.claude
 sudo chmod 1777 /home/vscode/.claude
 
+# create workdir
+sudo mkdir -p /home/vscode/workdir
+sudo chown vscode:vscode /home/vscode/workdir
+sudo chmod 1777 /home/vscode/workdir
+
 # Restrict sudo to only the commands needed by this init process
 sudo tee /etc/sudoers.d/vscode > /dev/null <<'SUDOERS'
 vscode ALL=(root) NOPASSWD: /usr/local/bin/init-firewall.sh, /usr/local/bin/init-firewall-orig.sh, /usr/local/share/docker-init.sh, /usr/local/share/docker-init-orig.sh, /usr/bin/tee, /usr/bin/touch
