@@ -61,4 +61,4 @@ contribute submit-review --event APPROVE --body "LGTM"
 
 # Get GitHub token
 
-`contribute token` writes valid token to stdout. Use to authenticate gh.s
+`contribute token` writes valid token to stdout. Use to authenticate gh.
