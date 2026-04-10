@@ -12,7 +12,19 @@ Firewalled devcontainer-based sandboxes for running Claude Code. Each sandbox ru
 
 `golang-dind` is the active sandbox. `dind` and `golang` are defined in `docker-compose.yaml` but commented out. To enable them, uncomment the relevant service and volume entries.
 
-All sandboxes include: Claude Code, GitHub CLI, tmux, git, and common utilities.
+All sandboxes include: Claude Code, GitHub CLI, tmux, git, and common utilities. Go sandboxes additionally include `gopls` and `contribute` (CLI for GitHub interactions).
+
+## Security model
+
+These sandboxes are designed to run Claude Code with `--dangerously-skip-permissions` safely:
+
+- **Firewall** — iptables rules allowlist only the services each sandbox needs (Anthropic API, GitHub, package registries). All other outbound traffic is blocked.
+- **Non-root user** — Claude Code runs as `vscode`, not root. It cannot install system packages, modify system files, or escalate privileges beyond the restricted `sudo` commands allowed during container init.
+- **Read-only configuration** — `.claude/CLAUDE.md`, agents, skills, and guidelines are synced from the host and owned by root inside the container. The `vscode` user can read but not modify them, preventing Claude from rewriting its own instructions.
+- **Isolated filesystem** — each sandbox has its own named Docker volume. There is no access to the host filesystem or other containers.
+- **`contribute` GitHub App** — Claude Code authenticates with GitHub as a bot identity (`ai-contributor-helper[bot]`) via a GitHub App private key. No personal access token or user credentials are exposed inside the container.
+
+> **Caveat: privileged containers.** DinD sandboxes run with `privileged: true`, which grants full access to the host kernel. The firewall and user restrictions still apply, but a sufficiently motivated process could escape the container. Use DinD sandboxes only when Docker-in-Docker is required.
 
 ## Requirements
 
@@ -32,7 +44,8 @@ cp .env.example .env
 |---|---|
 | `CLAUDE_CODE_OAUTH_TOKEN` | OAuth token for Claude Code authentication |
 | `DOCKER_HOST` | Remote Docker host (optional; leave empty to use local Docker) |
-| `GH_CONTRIBUTE_PRIVATE_KEY_PATH` | Path to private key for `gh-contribute` (optional) |
+| `GH_CONTRIBUTE_PRIVATE_KEY_PATH` | Path to private key for the `contribute` GitHub App |
+| `GH_CONTRIBUTE_APP_ID` | App ID for the `contribute` GitHub App |
 
 The `.env` file is gitignored. The Makefile auto-exports all variables from it into the environment.
 
@@ -54,21 +67,6 @@ make test
 # Stop and remove persistent volumes
 make purge
 ```
-
-## Makefile targets
-
-| Target | Description |
-|---|---|
-| `build` | Build all images |
-| `build-dind` / `build-golang` / `build-golang-dind` | Build individual images |
-| `clean` | Remove all built images |
-| `clean-build` | `clean` + `build` |
-| `up` | `docker compose up -d` |
-| `purge` | Remove images and persistent volumes |
-| `setup` | `sync` + `install-plugins` |
-| `sync` | Push `.claude/` config into running containers |
-| `install-plugins` | Install Claude Code plugins in running containers |
-| `test` | Run `test-sandbox.sh` in each running container |
 
 ## Project structure
 
@@ -107,11 +105,12 @@ test-sandbox.sh                    # Smoke tests run inside the sandbox
 The `sandbox-init.sh` entrypoint runs at container start:
 
 1. Sets `.claude` directory ownership to root with a sticky bit, preventing the `vscode` user from deleting root-owned files inside it (e.g. the injected `CLAUDE.md`)
-2. Restricts `sudo` to only the commands needed during init (firewall, docker-init, tee, touch)
-3. Skips the Claude Code first-run onboarding prompt
-4. Initializes the firewall via `init-firewall.sh` (configures iptables rules per the firewall feature settings)
-5. If Docker-in-Docker is installed, chains to `docker-init.sh` (starts `dockerd`)
-6. Falls through to `sleep infinity` to keep the container alive
+2. Creates `/home/vscode/workdir` with correct ownership and a sticky bit
+3. Restricts `sudo` to only the commands needed during init (firewall, docker-init, tee, touch)
+4. Skips the Claude Code first-run onboarding prompt
+5. Initializes the firewall via `init-firewall.sh` (configures iptables rules per the firewall feature settings)
+6. If Docker-in-Docker is installed, chains to `docker-init.sh` (starts `dockerd`)
+7. Falls through to `sleep infinity` to keep the container alive
 
 ### Claude configuration sync
 
