@@ -81,13 +81,19 @@ git push
 contribute comment "All feedback addressed, PTAL" --pr <N>
 ```  
 
-### 5. Check for approval
+### 5. Wait for updates
+
+```bash
+contribute watch
+```
+
+### 6. When update arrives, check for approval
 
 ```bash  
 contribute comments --pr <N>
 ```  
 
-If the latest review is APPROVED, the cycle is complete. Otherwise, wait for the next review.
+If the latest review is APPROVED, the cycle is complete. Otherwise, go to 1. Read the current PR state.
 
 ## Commands
 
