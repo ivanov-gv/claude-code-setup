@@ -37,7 +37,7 @@ Understand the task from the issue body, comments, and labels.
 
 Use `GH_TOKEN=$(contribute token) gh pr create` with `Fixes #<number>` in the body, then notify:
 
-`contribute comment "Ready for review" --pr <N>`
+`contribute comment "Ready for review @ivanov-gv" --pr <N>`
 
 ### 4. Enter the review loop
 
@@ -78,7 +78,7 @@ Read all inline threads. Understand the overall feedback before making changes.
 
 ```bash  
 git push
-contribute comment "All feedback addressed, PTAL" --pr <N>
+contribute comment "All feedback addressed, PTAL. cc @ivanov-gv" --pr <N>
 ```  
 
 ### 5. Wait for updates
