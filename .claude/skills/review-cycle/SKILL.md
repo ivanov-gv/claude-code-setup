@@ -59,7 +59,7 @@ Read all inline threads. Understand the overall feedback before making changes.
 
 1. **Acknowledge** — react with eyes to signal you've seen it:
    ```bash  
-   contribute react <comment-id> EYES   
+   contribute react <comment-id> eyes   
    ```  
 2. **Understand** — read the comment body and the file/line context.
 
@@ -71,7 +71,7 @@ Read all inline threads. Understand the overall feedback before making changes.
    ```  
 5. **React** — signal completion:
    ```bash  
-   contribute react <comment-id> ROCKET   
+   contribute react <comment-id> rocket   
    ```  
 
 ### 4. Push and notify
@@ -83,9 +83,7 @@ contribute comment "All feedback addressed, PTAL. cc @ivanov-gv" --pr <N>
 
 ### 5. Wait for updates
 
-```bash
-contribute watch
-```
+In a '/loop 30s' check updates on the PR.
 
 ### 6. When update arrives, check for approval
 
