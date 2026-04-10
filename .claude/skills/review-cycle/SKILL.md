@@ -53,11 +53,11 @@ Look for new reviews (CHANGES_REQUESTED or COMMENTED) that have not been address
 
 `contribute review <review-id> --pr <N>`
 
-Read all inline threads. Understand the overall feedback before making changes.
+Read all comments, subcomments in all threads. Make sure you have the full picture. Understand the overall feedback before making changes.
 
 ### 3. For each thread in the review
 
-1. **Acknowledge** — react with eyes to signal you've seen it:
+1. **Acknowledge** — react with eyes to signal you've seen it. React with eyes to the review top comment itself, all its comment and subcomments in all threads:
    ```bash  
    contribute react <comment-id> eyes   
    ```  
