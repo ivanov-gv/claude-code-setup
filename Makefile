@@ -35,15 +35,15 @@ sync:
 		echo "agents"; \
 		docker exec -u root $$id bash -c 'rm -rf /home/vscode/.claude/agents'; \
 		docker cp ./.claude/agents/. $$id:/home/vscode/.claude/agents/; \
-		docker exec -u root $$id bash -c 'chown -R root:root /home/vscode/.claude/agents && chmod 444 /home/vscode/.claude/agents'; \
+		docker exec -u root $$id bash -c 'chown -R root:root /home/vscode/.claude/agents && chmod -R a+rX /home/vscode/.claude/agents'; \
 		echo "shared"; \
 		docker exec -u root $$id bash -c 'rm -rf /home/vscode/.claude/shared'; \
 		docker cp ./.claude/shared/. $$id:/home/vscode/.claude/shared/; \
-		docker exec -u root $$id bash -c 'chown -R root:root /home/vscode/.claude/shared && chmod 444 /home/vscode/.claude/shared'; \
+		docker exec -u root $$id bash -c 'chown -R root:root /home/vscode/.claude/shared && chmod -R a+rX /home/vscode/.claude/shared'; \
 		echo "skills"; \
 		docker exec -u root $$id bash -c 'rm -rf /home/vscode/.claude/skills'; \
 		docker cp ./.claude/skills/. $$id:/home/vscode/.claude/skills/; \
-		docker exec -u root $$id bash -c 'chown -R root:root /home/vscode/.claude/skills && chmod 444 /home/vscode/.claude/skills'; \
+		docker exec -u root $$id bash -c 'chown -R root:root /home/vscode/.claude/skills && chmod -R a+rX /home/vscode/.claude/skills'; \
 		echo "claude.md"; \
 		docker exec -u root $$id bash -c 'rm -f /home/vscode/.claude/CLAUDE.md'; \
 		docker cp ./.claude/CLAUDE.md $$id:/home/vscode/.claude/CLAUDE.md; \

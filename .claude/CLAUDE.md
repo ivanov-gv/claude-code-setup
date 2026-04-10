@@ -21,4 +21,12 @@ Approximate content of the guidelines folder:
 # contribute
 
 You are likely authenticated with `github.com/ivanov-gv/contribute`. Use it to interact with github and authenticate `gh`.
-Call `contribute --help` to get help.
+
+All gh commands should be prefixed with GH_TOKEN=$(contribute token):
+
+```
+GH_TOKEN=$(contribute token) gh pr list                                                                                                                                                                        
+GH_TOKEN=$(contribute token) gh repo view ivanov-gv/contribute
+```
+
+Call `contribute --help` for more.

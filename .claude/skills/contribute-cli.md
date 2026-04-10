@@ -59,6 +59,13 @@ contribute review-comment "Nit: rename this variable" --file internal/cmd/pr.go 
 contribute submit-review --event APPROVE --body "LGTM"
 ```
 
-# Get GitHub token
+# Authenticate gh
 
-`contribute token` writes valid token to stdout. Use to authenticate gh.
+All gh commands should be prefixed with GH_TOKEN=$(contribute token):
+
+```
+GH_TOKEN=$(contribute token) gh pr list                                                                                                                                                                        
+GH_TOKEN=$(contribute token) gh repo view ivanov-gv/contribute
+```
+
+This calls contribute token fresh each time, so the token is always valid. I'll use this pattern going forward. 
