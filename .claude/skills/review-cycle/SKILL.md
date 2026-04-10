@@ -21,15 +21,16 @@ If no argument is given, auto-detect the PR from the current branch.
 
 ### 1. Pick and read the issue
 
-`contribute issue <number>`
-
-Understand the task from the issue body, comments, and labels.
+1. Authenticate using `contribute`, if needed.
+2. `contribute issue <number>`, if needed.
+3. Understand the task from the issue body, comments, and labels.
+4. Create a branch for your work: `git checkout -b issue/<issue-number>-<short-description>`
 
 ### 2. Implement the fix
 
-1. Authenticate using `contribute`, if needed.
-2. Create a branch: `git checkout -b issue/<issue-number>-<short-description>`
-3. Write code, run tests (`make test`), lint (`make lint`)
+1. Try to understand the root-causes of the issue. Write tests to cover this issue, if not already.  
+2. Write code, run tests (`make test`), lint (`make lint`)
+3. Run /review-cycle to review your changes. Also, make sure everything meets the guidelines.
 4. Commit: `git commit -m "Fix #<number>: <description>"`
 5. Push: `git push -u origin <branch>`
 
@@ -38,6 +39,8 @@ Understand the task from the issue body, comments, and labels.
 Use `GH_TOKEN=$(contribute token) gh pr create` with `Fixes #<number>` in the body, then notify:
 
 `contribute comment "Ready for review @ivanov-gv" --pr <N>`
+
+Check CI status. If any fix is needed - go to step 2. Proceed only if you're 100% sure about your PR. 
 
 ### 4. Enter the review loop
 
@@ -65,7 +68,7 @@ before making changes.
    ```  
 2. **Understand** — read the comment body and the file/line context.
 
-3. **Fix** — make the requested code change.
+3. **Fix** — make the requested code change. Follow '2. Implement the fix' part
 
 4. **Reply** — tell the reviewer what you did:
    ```bash  
