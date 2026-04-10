@@ -28,7 +28,7 @@ If no argument is given, auto-detect the PR from the current branch.
 
 ### 2. Implement the fix
 
-1. Try to understand the root-causes of the issue. Write tests to cover this issue, if not already.  
+1. Try to understand the root-causes of the issue. Write tests to cover this issue, if not already.
 2. Write code, run tests (`make test`), lint (`make lint`)
 3. Run /review-cycle to review your changes. Also, make sure everything meets the guidelines.
 4. Commit: `git commit -m "Fix #<number>: <description>"`
@@ -40,7 +40,7 @@ Use `GH_TOKEN=$(contribute token) gh pr create` with `Fixes #<number>` in the bo
 
 `contribute comment "Ready for review @ivanov-gv" --pr <N>`
 
-Check CI status. If any fix is needed - go to step 2. Proceed only if you're 100% sure about your PR. 
+Check CI status. If any fix is needed - go to step 2. Proceed only if you're 100% sure about your PR.
 
 ### 4. Enter the review loop
 
@@ -90,7 +90,10 @@ contribute comment "All feedback addressed, PTAL. cc @ivanov-gv" --pr <N>
 
 ### 5. Wait for updates
 
-In a '/loop 30s' check updates on the PR. *DO NOT* use 'watch' command - it's not gonna work for you as intended.
+Check updates on the PR periodically with /loop command. Read output of 'contribute comments' and if a new review or
+comment arrives - proceed.
+
+*DO NOT* use 'watch' command - it's not gonna work for you as intended.
 
 ### 6. When update arrives, check for approval
 
