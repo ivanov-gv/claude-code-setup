@@ -90,7 +90,7 @@ contribute comment "All feedback addressed, PTAL. cc @ivanov-gv" --pr <N>
 
 ### 5. Wait for updates
 
-In a '/loop 30s' check updates on the PR.
+In a '/loop 30s' check updates on the PR. *DO NOT* use 'watch' command - it's not gonna work for you as intended.
 
 ### 6. When update arrives, check for approval
 
