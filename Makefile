@@ -49,10 +49,10 @@ sync:
 		docker cp ./.claude/CLAUDE.md $$id:/home/vscode/.claude/CLAUDE.md; \
 		docker exec -u root $$id bash -c 'chown root:root /home/vscode/.claude/CLAUDE.md && chmod 444 /home/vscode/.claude/CLAUDE.md'; \
 		echo "private-key.pem"; \
-		docker exec -u root $$id bash -c 'mkdir -p /home/vscode/.config/gh-contribute && chown vscode:vscode /home/vscode/.config/gh-contribute'; \
-		docker exec -u root $$id bash -c 'rm -f /home/vscode/.config/gh-contribute/private-key.pem'; \
-		docker cp "${GH_CONTRIBUTE_PRIVATE_KEY_PATH}" $$id:/home/vscode/.config/gh-contribute/private-key.pem; \
-		docker exec -u root $$id bash -c 'chown root:root /home/vscode/.config/gh-contribute/private-key.pem && chmod 444 /home/vscode/.config/gh-contribute/private-key.pem'; \
+		docker exec -u root $$id bash -c 'mkdir -p /home/vscode/.config/contribute && chown vscode:vscode /home/vscode/.config/contribute'; \
+		docker exec -u root $$id bash -c 'rm -f /home/vscode/.config/contribute/private-key.pem'; \
+		docker cp "${GH_CONTRIBUTE_PRIVATE_KEY_PATH}" $$id:/home/vscode/.config/contribute/private-key.pem; \
+		docker exec -u root $$id bash -c 'chown root:root /home/vscode/.config/contribute/private-key.pem && chmod 444 /home/vscode/.config/contribute/private-key.pem'; \
 	done
 
 MARKETPLACES := https://github.com/anthropics/claude-code anthropics/claude-plugins-official
