@@ -93,6 +93,10 @@ contribute comments --pr <N>
 
 If the latest review is APPROVED, the cycle is complete. Otherwise, go to 1. Read the current PR state.
 
+### 7. Merge after approval
+
+If approved, ci checks are green - merge it. Always use squash.
+
 ## Commands
 
 See `contribute --help`
