@@ -64,8 +64,8 @@ before making changes.
 1. **Acknowledge** — react with eyes to signal you've seen it. React with eyes to the review top comment itself, all its
    comment and subcomments in all threads:
    ```bash  
-   contribute react comment <comment-id> eyes
    contribute react review <review-id> eyes
+   contribute react comment <comment-id> eyes
    ```  
 2. **Understand** — read the comment body and the file/line context.
 
