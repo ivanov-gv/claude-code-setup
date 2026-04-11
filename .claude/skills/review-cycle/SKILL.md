@@ -88,12 +88,12 @@ git push
 contribute comment "All feedback addressed, PTAL. cc @ivanov-gv" --pr <N>
 ```  
 
-### 5. Wait for updates
+Then go to the next step - pool for updates.
 
-Check updates on the PR periodically with /loop command. Read output of 'contribute comments' and if a new review or
-comment arrives - proceed.
+### 5. Pool for updates
 
-*DO NOT* use 'watch' command - it's not gonna work for you as intended.
+Check updates on the PR periodically. Run /loop command every 30 seconds. Run 'contribute comments' and if a
+new review or comment arrives - proceed to step 6.
 
 ### 6. When update arrives, check for approval
 
