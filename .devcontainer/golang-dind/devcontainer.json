@@ -27,22 +27,6 @@
       "ubuntuPackages": true,
       "claudeCode": true
     },
-    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {},
     "../sandbox-init": {}
-  },
-  "customizations": {
-    "jetbrains": {
-      "settings": {
-        "com.intellij:app:BaseRefactoringSettings.safe_delete_when_delete": false,
-        "com.intellij:app:BaseRefactoringSettings.rename_search_in_comments_for_file": false,
-        "com.intellij:app:BaseRefactoringSettings.rename_search_for_references_for_directory": false,
-        "org.jetbrains.plugins.github:app:GithubSettings.clone_git_using_ssh": true,
-        "com.intellij:app:VcsApplicationSettings.commit_from_local_changes": false,
-        "com.intellij.database:app:DatabaseSettings.warn-unsafe-query": false,
-        "Git4Idea:app:Git-Application-Settings.use_credential_helper": true,
-        "com.intellij:app:HttpConfigurable.use_proxy_pac": true
-      },
-      "backend": "GoLand"
-    }
   }
 }

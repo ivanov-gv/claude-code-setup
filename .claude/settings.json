@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"Before editing files, read the relevant guidelines first: ~/.claude/shared/guidelines/**/* — identify and read the ones that apply to this task.\"}}'"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "printf '{\"hookSpecificOutput\":{\"hookEventName\":\"SubagentStart\",\"additionalContext\":\"Guidelines are located at ~/.claude/shared/guidelines/**/* — before editing files, identify and read the relevant ones for your task.\"}}'"
+          }
+        ]
+      }
+    ]
+  }
+}

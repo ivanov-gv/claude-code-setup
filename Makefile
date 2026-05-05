@@ -8,13 +8,13 @@ clean-build: clean build
 build: build-dind build-golang build-golang-dind
 
 build-dind:
-	devcontainer build --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/dind/devcontainer.json --image-name cc-dind
+	devcontainer build --no-cache --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/dind/devcontainer.json --image-name cc-dind
 
 build-golang:
-	devcontainer build --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/golang/devcontainer.json --image-name cc-golang
+	devcontainer build --no-cache --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/golang/devcontainer.json --image-name cc-golang
 
 build-golang-dind:
-	devcontainer build --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/golang-dind/devcontainer.json --image-name cc-golang-dind
+	devcontainer build --no-cache --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/golang-dind/devcontainer.json --image-name cc-golang-dind
 
 clean:
 	docker rmi -f cc-dind cc-golang cc-golang-dind
@@ -48,6 +48,9 @@ sync:
 		docker exec -u root $$id bash -c 'rm -f /home/vscode/.claude/CLAUDE.md'; \
 		docker cp ./.claude/CLAUDE.md $$id:/home/vscode/.claude/CLAUDE.md; \
 		docker exec -u root $$id bash -c 'chown root:root /home/vscode/.claude/CLAUDE.md && chmod 444 /home/vscode/.claude/CLAUDE.md'; \
+		echo "settings.json"; \
+		docker cp ./.claude/settings.json $$id:/tmp/cc-settings.json; \
+		docker exec -u root $$id bash -c 'jq -s ".[0] * .[1]" /home/vscode/.claude/settings.json /tmp/cc-settings.json > /tmp/cc-settings-merged.json && mv /tmp/cc-settings-merged.json /home/vscode/.claude/settings.json && chown vscode:vscode /home/vscode/.claude/settings.json'; \
 		echo "private-key.pem"; \
 		docker exec -u root $$id bash -c 'mkdir -p /home/vscode/.config/contribute && chown vscode:vscode /home/vscode/.config/contribute'; \
 		docker exec -u root $$id bash -c 'rm -f /home/vscode/.config/contribute/private-key.pem'; \

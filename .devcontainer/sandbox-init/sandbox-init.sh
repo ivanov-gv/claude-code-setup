@@ -5,6 +5,17 @@ LOCK="/var/run/sandbox-init.done"
 
 if [ -f "$LOCK" ]; then
   echo "Sandbox already initialized, skipping"
+  # Re-apply firewall rules (iptables is wiped on container restart)
+  if [ -x /usr/local/bin/init-firewall-orig.sh ]; then
+    sudo /usr/local/bin/init-firewall-orig.sh
+  fi
+  # Restart dockerd
+  if [ -x /usr/local/share/docker-init.sh ]; then
+    sudo /usr/local/share/docker-init.sh sleep infinity &
+    timeout=30; while [ $timeout -gt 0 ] && ! docker info >/dev/null 2>&1; do
+      sleep 1; timeout=$((timeout - 1))
+    done
+  fi
   [ $# -eq 0 ] && exec sleep infinity
   exec "$@"
 fi
@@ -39,7 +50,7 @@ fi
 # Start Docker daemon if DinD is installed
 if [ -x /usr/local/share/docker-init.sh ]; then
   sudo /usr/local/share/docker-init.sh sleep infinity &
-  timeout=30; while [ $timeout -gt 0 ] && [ ! -f /var/run/docker-init.done ]; do
+  timeout=30; while [ $timeout -gt 0 ] && ! docker info >/dev/null 2>&1; do
     sleep 1; timeout=$((timeout - 1))
   done
 fi
