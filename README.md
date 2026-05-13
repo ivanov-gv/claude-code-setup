@@ -22,7 +22,7 @@ These sandboxes are designed to run Claude Code with `--dangerously-skip-permiss
 - **Non-root user** — Claude Code runs as `vscode`, not root. It cannot install system packages, modify system files, or escalate privileges beyond the restricted `sudo` commands allowed during container init.
 - **Read-only configuration** — `.claude/CLAUDE.md`, agents, skills, and guidelines are synced from the host and owned by root inside the container. The `vscode` user can read but not modify them, preventing Claude from rewriting its own instructions.
 - **Isolated filesystem** — each sandbox has its own named Docker volume. There is no access to the host filesystem or other containers.
-- **`contribute` GitHub App** — Claude Code authenticates with GitHub as a bot identity (`ai-contributor-helper[bot]`) via a GitHub App private key. No personal access token or user credentials are exposed inside the container.
+- **`contribute` GitHub App** — Claude Code authenticates with GitHub as a bot identity (`ai-contributor-helper[bot]`) via a GitHub App private key. No personal access token or user credentials are exposed inside the container. See https://github.com/ivanov-gv/contribute
 
 > **Caveat: privileged containers.** DinD sandboxes run with `privileged: true`, which grants full access to the host kernel. The firewall and user restrictions still apply, but a sufficiently motivated process could escape the container. Use DinD sandboxes only when Docker-in-Docker is required.
 
