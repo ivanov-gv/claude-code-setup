@@ -27,6 +27,10 @@ purge: clean
 
 setup: sync install-plugins
 
+.PHONY: connect
+connect:
+	@./connect.sh
+
 .PHONY: sync
 sync:
 	@for id in $$(docker compose ps -q); do \
