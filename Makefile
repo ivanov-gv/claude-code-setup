@@ -1,18 +1,23 @@
-.PHONY: build build-dind build-golang build-golang-dind clean sync-plugins
+MARKETPLACES := ivanov-gv/agents https://github.com/anthropics/claude-code anthropics/claude-plugins-official
+PLUGINS := agents@ivanov-gv gopls-lsp@claude-plugins-official pr-review-toolkit@claude-plugins-official ralph-loop@claude-plugins-official code-simplifier@claude-plugins-official feature-dev@claude-plugins-official
 
 -include .env
 export
 
-clean-build: clean build
+clean-build: delete-images build
 
+.PHONY: build
 build: build-dind build-golang build-golang-dind
 
+.PHONY: build-dind
 build-dind:
 	devcontainer build --no-cache --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/dind/devcontainer.json --image-name cc-dind
 
+.PHONY: build-golang
 build-golang:
 	devcontainer build --no-cache --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/golang/devcontainer.json --image-name cc-golang
 
+.PHONY: build-golang-dind
 build-golang-dind:
 	devcontainer build --no-cache --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/golang-dind/devcontainer.json --image-name cc-golang-dind
 
@@ -64,9 +69,6 @@ sync:
 		docker cp "${GH_CONTRIBUTE_PRIVATE_KEY_PATH}" $$id:/home/vscode/.config/contribute/private-key.pem; \
 		docker exec -u root $$id bash -c 'chown root:root /home/vscode/.config/contribute/private-key.pem && chmod 444 /home/vscode/.config/contribute/private-key.pem'; \
 	done
-
-MARKETPLACES := https://github.com/anthropics/claude-code anthropics/claude-plugins-official
-PLUGINS := gopls-lsp@claude-plugins-official pr-review-toolkit@claude-plugins-official ralph-loop@claude-plugins-official code-simplifier@claude-plugins-official feature-dev@claude-plugins-official
 
 .PHONY: install-plugins
 install-plugins:
