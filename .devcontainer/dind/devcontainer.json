@@ -22,7 +22,9 @@
       "ubuntuPackages": true,
       "claudeCode": true
     },
-    "ghcr.io/devcontainers-extra/features/tmux-apt-get:1": {},
+    "ghcr.io/devcontainers-extra/features/apt-packages:1": {
+      "packages": "dtach"
+    },
     "../sandbox-init": {}
   }
 }
