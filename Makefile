@@ -16,13 +16,16 @@ build-golang:
 build-golang-dind:
 	devcontainer build --no-cache --workspace-folder $(CURDIR) --config $(CURDIR)/.devcontainer/golang-dind/devcontainer.json --image-name cc-golang-dind
 
-clean:
+delete-images:
 	docker rmi -f cc-dind cc-golang cc-golang-dind
 
 up:
 	docker compose up -d
 
-purge: clean
+down:
+	docker compose down
+
+purge: delete-images
 	docker compose down --volumes
 
 setup: sync install-plugins
